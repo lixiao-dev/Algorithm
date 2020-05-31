@@ -1,2 +1,2 @@
 # Algorithm
-Algorithm for leetcode
+Leetcode problem solving
