@@ -1,0 +1,27 @@
+class Solution {
+
+    Boolean[][] memo;
+    public boolean isMatch(String s, String p) {
+        memo = new Boolean[s.length() + 1][p.length() + 1];
+        return isMatch(s.toCharArray(), 0, p.toCharArray(), 0);
+    }
+    
+    private boolean isMatch(char[] ss, int i, char[] ps, int j) {
+        if(memo[i][j] != null) return memo[i][j];
+        
+        boolean result = false;
+        if(j == ps.length) {
+            result = i == ss.length;
+        } else {
+            boolean firstMatch = i != ss.length && (ss[i] == ps[j] || ps[j] == '?');
+            if(ps[j] == '*') {
+                result = (i != ss.length && isMatch(ss, i + 1, ps, j)) || isMatch(ss, i, ps, j + 1);
+            } else {
+                result = firstMatch && isMatch(ss, i + 1, ps, j + 1);
+            } 
+        }
+        
+        memo[i][j] = result;
+        return result;
+    }
+}
